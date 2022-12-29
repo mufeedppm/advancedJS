@@ -1,91 +1,51 @@
-// var items=document.getElementsByClassName('list-group-item');
+var form=document.getElementById('addForm')
+var itemList=document.getElementById('items')
 
-// items[2].style.backgroundColor= 'green';
+form.addEventListener('submit',addItem);
+itemList.addEventListener('click',removeItem)
 
-// for(let i=0;i<items.length;i++){
-//     items[i].style.fontWeight= 'bold';
-// }
-// var items=document.getElementsByClassName('list-group-item');
-// for(let i=0;i<items.length;i++){
-//     items[i].style.fontWeight= 'bold';
-//     items[i].style.backgroundColor= 'grey';
-// }
+function addItem(e){
+    e.preventDefault();
 
-// var li=document.getElementsByTagName('li');
-// for(let i=0;i<li.length;i++){
-//     li[i].style.fontWeight= 'bold';
-//     li[i].style.backgroundColor= 'grey';
-// }
+    var newItem=document.getElementById('item').value;
 
-//QuerySelector
+    var li=document.createElement('li')
 
-// var secondItem=document.querySelector('.list-group-item:nth-child(2)')
-// secondItem.style.backgroundColor='green'
+    li.className='list-group-item'
 
-// var thirdItem=document.querySelector('.list-group-item:nth-child(3)')
-// thirdItem.style.display='none'
+    li.appendChild(document.createTextNode(newItem))
 
-// //QuerySelectorAll
-// var odd=document.querySelectorAll('li:nth-child(odd)')
-// for(let i=0;i<odd.length;i++){
-//     odd[i].style.backgroundColor='greeen'
-// }
+    
+    
 
-// var list=document.querySelectorAll('li:nth-child(2)')
-// list.color='green'
-var itemList=document.querySelector('#items')
+    
+    var delBtn=document.createElement('button')
 
+    delBtn.className='btn btn-danger btn-sm float-right delete'
 
-itemList.parentNode.style.backgroundColor='tomato';
+    delBtn.appendChild(document.createTextNode('X'))
 
-itemList.lastElementChild.style.backgroundColor='powderblue'
+    li.appendChild(delBtn);
 
-itemList.lastChild.textContent='lastChild of #items was a blank space';
+    var EditBtn=document.createElement('button')
 
-itemList.firstChild.textContent='firstChild of #items was a blank space';
+    EditBtn.className=' btn float-right btn-sm'
 
-itemList.firstElementChild.style.backgroundColor='lavender'
+    EditBtn.appendChild(document.createTextNode('Edit'))
 
-var title=document.querySelector('.title');
+    li.appendChild(EditBtn);
 
-title.nextSibling.textContent='next sibling of #title was a blank space' 
+    
+    itemList.appendChild(li)
 
-title.nextElementSibling.style.border='2px solid #f4f4f4'
+} 
 
-itemList.previousElementSibling.style.color='blue'
+function removeItem(e){
+    if(e.target.classList.contains('delete')){
+        if(confirm(`Confirm to delete`)){
+            var li=e.target.parentElement;
+            itemList.removeChild(li);
+        }
+    }
 
-itemList.previousSibling.textContent='previousSibling of #items was a blank space' 
-
-var newDiv= document.createElement('div')
-
-newDiv.className='HEllo'
-
-newDiv.id='HEllo'
-
-newDiv.setAttribute('title', 'HEllo word')
-
-newDivTxt=document.createTextNode('Hello World')
-
-newDiv.appendChild(newDivTxt)
-
-var newDiv2= document.createElement('div')
-
-newDiv2.className='HEllo2'
-
-newDiv2.id='HEllo2'
-
-newDiv2.setAttribute('title2', 'HEllo word2')
-
-newDiv2Txt=document.createTextNode('Hello World')
-newDiv2.appendChild(newDiv2Txt)
-
-
-// console.log(newDiv)
-
-var container=document.querySelector('header .container')
-
-var h1=document.querySelector('#header-title')
-
-container.insertBefore(newDiv,h1)
-
-itemList.insertBefore(newDiv2,document.querySelector('.list-group-item'))
+}
