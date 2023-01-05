@@ -105,3 +105,30 @@
     padding: 5px;
     margin: 5px;
   }
+
+  .deleteBtn{
+    
+    float: right;
+    padding: 5px;
+    border: 0;
+    background: red;
+    color: #fff;
+    border-radius: 3px;;
+    
+  }
+  .editBtn{
+    float: right;
+    padding: 5px;
+    border: 0;
+    background:#333;
+    color: #fff;
+    border-radius: 3px;;
+  }
+
+  .editBtn:hover {
+    background: #444;
+  }
+
+  .deleteBtn:hover {
+    background: rgb(226, 55, 55);
+  }
