@@ -6,6 +6,7 @@ var phoneInput=document.getElementById('phone')
 
 form.addEventListener('submit',saveToLocal)
 form.addEventListener('submit',addUser)
+userList.addEventListener('click',removeUser)
 
 function addUser(e){
     e.preventDefault()
@@ -15,11 +16,41 @@ function addUser(e){
     else{
         var li=document.createElement('li')
         li.appendChild(document.createTextNode(`${nameInput.value} : ${emailInput.value},${phoneInput.value}`))
-        userList.appendChild(li)
+        var delBtn=document.createElement('button')
+
+    delBtn.className='deleteBtn delete'
+
+    delBtn.appendChild(document.createTextNode('X'))
+
+    li.appendChild(delBtn);
+
+    var EditBtn=document.createElement('button')
+
+    EditBtn.className=' editBtn '
+
+    EditBtn.appendChild(document.createTextNode('Edit'))
+
+    li.appendChild(EditBtn);
+
+
+    userList.appendChild(li)
+
+    
+    
+    
+        
 
         nameInput.value='';
         emailInput.value='';
         phoneInput.value=''
+    }
+}
+function removeUser(e){
+    if(e.target.classList.contains('delete')){
+        if(confirm(`Confirm to delete`)){
+            var li=e.target.parentElement;
+            userList.removeChild(li);
+        }
     }
 }
 
@@ -45,3 +76,31 @@ function saveToLocal(e){
         }
     
 }
+// var delBtn=document.createElement('button')
+
+//     delBtn.className='btn btn-danger btn-sm float-right delete'
+
+//     delBtn.appendChild(document.createTextNode('X'))
+
+//     li.appendChild(delBtn);
+
+//     var EditBtn=document.createElement('button')
+
+//     EditBtn.className=' btn float-right btn-sm'
+
+//     EditBtn.appendChild(document.createTextNode('Edit'))
+
+//     li.appendChild(EditBtn);
+
+
+//     userList.appendChild(li)
+
+//     function removeUser(e){
+//         if(e.target.classList.contains('delete')){
+//             if(confirm(`Confirm to delete`)){
+//                 var li=e.target.parentElement;
+//                 userList.removeChild(li);
+//             }
+//         }
+    
+//     } 
