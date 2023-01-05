@@ -27,17 +27,21 @@ function saveToLocal(e){
     e.preventDefault();
     var name=e.target.userName.value;
     var email=e.target.email.value;
+    var phone=e.target.phone.value;
     var obj={
-        nameInput,
-        emailInput,
-        phoneInput}
+        name,
+        email,
+        phone}
+    
     if(nameInput.value=="" || emailInput.value==""|| phoneInput.value=="" ){
         
     }
-
-    else{
-            localStorage.setItem(obj.emailInput.value,obj)
-            console.log(obj.phoneInput.value)
+    
+    else{   
+            
+            localStorage.setItem(obj.email, JSON.stringify(obj))
+            var objDeserial=JSON.parse(localStorage.getItem(obj.email))
+            console.log(objDeserial)
         }
     
 }
