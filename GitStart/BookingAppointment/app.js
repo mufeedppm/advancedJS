@@ -4,16 +4,26 @@ var nameInput=document.getElementById('name')
 var emailInput=document.getElementById('email')
 var phoneInput=document.getElementById('phone')
 
-form.addEventListener('submit',saveToLocal)
+
 form.addEventListener('submit',addUser)
-userList.addEventListener('click',removeUser)
+// userList.addEventListener('click',removeUser)
 
 function addUser(e){
     e.preventDefault()
+    var name=e.target.userName.value;
+    var email=e.target.email.value;
+    var phone=e.target.phone.value;
+    var obj={
+        name,
+        email,
+        phone}
+
+
     if(nameInput.value=="" || emailInput.value=="" || phoneInput.value==""){
         alert("Please enter all fields")
     }
     else{
+        localStorage.setItem(obj.email, JSON.stringify(obj))
         var li=document.createElement('li')
         li.appendChild(document.createTextNode(`${nameInput.value} : ${emailInput.value},${phoneInput.value}`))
         var delBtn=document.createElement('button')
@@ -23,6 +33,11 @@ function addUser(e){
     delBtn.appendChild(document.createTextNode('X'))
 
     li.appendChild(delBtn);
+
+    delBtn.onclick = () =>{
+        localStorage.removeItem(obj.email)
+        userList.removeChild(li)
+    }
 
     var EditBtn=document.createElement('button')
 
@@ -49,7 +64,16 @@ function removeUser(e){
     if(e.target.classList.contains('delete')){
         if(confirm(`Confirm to delete`)){
             var li=e.target.parentElement;
+            
+            
             userList.removeChild(li);
+
+            
+            
+            
+
+            
+            
         }
     }
 }
@@ -71,36 +95,9 @@ function saveToLocal(e){
     else{   
             
             localStorage.setItem(obj.email, JSON.stringify(obj))
-            var objDeserial=JSON.parse(localStorage.getItem(obj.email))
-            console.log(objDeserial)
+            // var objDeserial=JSON.parse(localStorage.getItem(obj.email))
+            // console.log(objDeserial)
         }
     
 }
-// var delBtn=document.createElement('button')
 
-//     delBtn.className='btn btn-danger btn-sm float-right delete'
-
-//     delBtn.appendChild(document.createTextNode('X'))
-
-//     li.appendChild(delBtn);
-
-//     var EditBtn=document.createElement('button')
-
-//     EditBtn.className=' btn float-right btn-sm'
-
-//     EditBtn.appendChild(document.createTextNode('Edit'))
-
-//     li.appendChild(EditBtn);
-
-
-//     userList.appendChild(li)
-
-//     function removeUser(e){
-//         if(e.target.classList.contains('delete')){
-//             if(confirm(`Confirm to delete`)){
-//                 var li=e.target.parentElement;
-//                 userList.removeChild(li);
-//             }
-//         }
-    
-//     } 
