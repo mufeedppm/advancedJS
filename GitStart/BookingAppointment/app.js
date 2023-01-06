@@ -35,8 +35,10 @@ function addUser(e){
     li.appendChild(delBtn);
 
     delBtn.onclick = () =>{
+        if(confirm(`Press Ok to delete`)){
         localStorage.removeItem(obj.email)
         userList.removeChild(li)
+        }
     }
 
     var EditBtn=document.createElement('button')
@@ -46,6 +48,16 @@ function addUser(e){
     EditBtn.appendChild(document.createTextNode('Edit'))
 
     li.appendChild(EditBtn);
+    
+    EditBtn.onclick = () =>{
+        if(confirm(`Press OK to confirm edit`)){
+            nameInput.value=obj.name;
+            emailInput.value=obj.email;
+            phoneInput.value=obj.phone;
+            localStorage.removeItem(obj.email)
+            userList.removeChild(li)
+        }
+    }
 
 
     userList.appendChild(li)
