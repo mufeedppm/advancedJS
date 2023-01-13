@@ -11,7 +11,7 @@ function add(x,y,z){
 
 }
 
-
+//ad
 
 console.log(add.call(obj,5,3,1))
 
