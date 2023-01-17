@@ -1,163 +1,171 @@
-//1)
-var obj={val:5};
+// //1)
+// var obj={val:5};
 
 
 
-function add(x,y,z){
-
-  
-
- return this.val+x+y+z;
-
-}
-
-//ad
-
-console.log(add.call(obj,5,3,1))
-
-
-
-//2)
-var obj={val:5};
-
-
-
-function add(x,y,z){
+// function add(x,y,z){
 
   
 
- return this.val+x+y+z;
+//  return this.val+x+y+z;
 
-}
+// }
 
+// //ad
 
-
-var arr=[3,4,5]
-
-
-
-console.log(add.apply(obj,arr))
-
-
-//3
-var obj={val:5};
+// console.log(add.call(obj,5,3,1))
 
 
 
-function add(x,y,z){
+// //2)
+// var obj={val:5};
+
+
+
+// function add(x,y,z){
 
   
 
- return this.val+x+y+z;
+//  return this.val+x+y+z;
 
-}
-
-
-
-let arr=[3,4,5]
+// }
 
 
 
-let bound= add.bind(obj)
+// // var arr=[3,4,5]
 
 
 
-console.log(bound(1,1,1))
+// // console.log(add.apply(obj,arr))
+
+
+// //3
+// var obj={val:5};
 
 
 
-
-//4
-let student1={age:20}
-
-
-
-function printAge(){
-
-  return this.age;  
-
-
-
-}
-
-
-
-let ans=printAge.bind(student);
-
-
-
-console.log(ans())
-
-//-----------------------------------------------------------------------------
-
-//1)
-
- let add=function(x){
+// function add(x,y,z){
 
   
 
- return function(y){
+//  return this.val+x+y+z;
 
-  console.log(x+y)
-
- }
-
-}
+// }
 
 
 
-let addTwo=add(2)
+// let arr=[3,4,5]
 
 
 
-addTwo(3);
+// let bound= add.bind(obj)
 
-class student{
 
- static i=0;
 
- constructor(name,age,marks){
+// console.log(bound(1,1,1))
 
-  this.name=name;
 
-  this.age=age;
 
-  // this.phone=phone;
 
-  this.marks=marks;
+// //4
+// let student1={age:20}
 
-  student.i+=1;
- }
 
-  eligibleForPlacement(minAge){
-      return (minMark) =>{
-          if(this.marks>=minMark && this.age>=minAge){
-            console.log(`${this.name} is  eligible for placement`)
-          }
-          else
-            console.log(`${this.name} is not eligible for placement`)
+
+// function printAge(){
+
+//   return this.age;  
+
+
+
+// }
+
+
+
+// let ans=printAge.bind(student);
+
+
+
+// console.log(ans())
+
+// //-----------------------------------------------------------------------------
+
+// //1)
+
+//  let add=function(x){
+
+  
+
+//  return function(y){
+
+//   console.log(x+y)
+
+//  }
+
+// }
+
+
+
+// let addTwo=add(2)
+
+
+
+// addTwo(3);
+
+// class student{
+
+//  static i=0;
+
+//  constructor(name,age,marks){
+
+//   this.name=name;
+
+//   this.age=age;
+
+//   // this.phone=phone;
+
+//   this.marks=marks;
+
+//   student.i+=1;
+//  }
+
+//   eligibleForPlacement(minAge){
+//       return (minMark) =>{
+//           if(this.marks>=minMark && this.age>=minAge){
+//             console.log(`${this.name} is  eligible for placement`)
+//           }
+//           else
+//             console.log(`${this.name} is not eligible for placement`)
     
       
-     }
+//      }
   
   
-}   
+// }   
   
  
+// }
+// let obj1=new student("akash",22,45)
+
+// let obj2=new student("abhinav",20,54)
+
+// let obj3=new student("aravind",24,45)
+
+// let obj4=new student("amal",23,32)
+
+// let obj5=new student("akshay",21,56)
+
+// obj1.eligibleForPlacement(21)(45)
+// obj2.eligibleForPlacement(21)(45)
+// obj3.eligibleForPlacement(21)(45)
+// obj4.eligibleForPlacement(21)(45)
+// obj5.eligibleForPlacement(21)(45)
+
+function countEvent(){
+count=0
+document.getElementById("clickMe").addEventListener("click",function printClicked(){
+    console.log("clicked me ",count++)
+})
+
 }
-let obj1=new student("akash",22,45)
-
-let obj2=new student("abhinav",20,54)
-
-let obj3=new student("aravind",24,45)
-
-let obj4=new student("amal",23,32)
-
-let obj5=new student("akshay",21,56)
-
-obj1.eligibleForPlacement(21)(45)
-obj2.eligibleForPlacement(21)(45)
-obj3.eligibleForPlacement(21)(45)
-obj4.eligibleForPlacement(21)(45)
-obj5.eligibleForPlacement(21)(45)
-  
+countEvent()
