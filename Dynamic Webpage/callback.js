@@ -1,38 +1,121 @@
 const posts=[
     {title:'Post 1',body:'this is post 1', createdAt:new Date().getTime()},
     {title:'Post 2',body:'this is post 2', createdAt:new Date().getTime()}
-]
+];
+console.log(posts)
 let intervalId;
- 
-function getPosts(){
+
+function getPost(){
     clearInterval(intervalId)
-    intervalId= setInterval(() => {
-        output=''
-        posts.forEach((post) => {
-            output+=`<li>${post.title} created  ${Math.floor((new Date().getTime()- post.createdAt)/1000)} seconds ago</li>`
-        });
-        document.body.innerHTML=output;  
+    intervalId=setInterval(() => {
+        let output='';
+        for(let i=0;i<posts.length;i++){
+            output+=`<li>${posts[i].title} created  ${Math.floor((posts[i].createdAt-new Date().getTime())/1000)} seconds ago</li>`
+        }
+        document.body.innerHTML=output;
+
+
     }, 1000);
+    
+
+}
+// part1
+function createPost(post){
+    return new Promise((resolve, reject)=>{
+        setTimeout(()=>{
+            posts.push({...post,createdAt:new Date().getTime()})
+             
+            const error=false;
+
+            if(!error){
+                resolve()
+            }
+            else{
+                reject("Error:something went wrong")
+            }
+        },1000)
+    });
     
 }
 
-function createPost(post,callback){
-    setTimeout(() => {
-        posts.push({...post,createdAt:new Date().getTime()})
-        callback()
-    },2000)
+createPost({title:'post 3',body:'this post 3'})
+.then(getPost).catch(err=>console.log(err))
+
+
+
+function deletePost(){
+    return new Promise((resolve,reject)=>{
+        
+        setTimeout(() => {
+            
+            if(posts.length){
+                resolve(posts.pop())
+            }
+            else{
+                reject("Error:Array empty")
+            }
+        }, 1000);
+       
+        
+    })
 }
 
+// deletePost().then(()=>{
+//     getPost()
+//     deletePost().then(()=>{
+//         getPost();
+//         deletePost().then(()=>{
+//             getPost()
+//             deletePost().then(()=>
+//             getPost()).catch(err=>console.log(err))
+//         }).catch(err=>console.log(err))
+//     }).catch(err=>console.log(err))
+// }).catch(err=>console.log(err))
+
+createPost({title:'post 4',body:'this post 4'})
+// .then(()=>{
+//     getPost()
+//     setTimeout(() => {
+//         // getPost()
+//         deletePost().then(() => {
+//             getPost() }).catch(err=>console.log(err))
+       
+//     }, 2000);
+    
+// }).catch(err=>console.log(err))
 
 
-createPost({title:'Post 3',body:'this is post 3'},getPosts)
+// part2
+// promise.all
 
-
-function create4thPost(post,callback){
-    setTimeout(() => {
-        posts.push({...post,createdAt:new Date().getTime()})
-        callback()
-    },2000)
+const user={
+    name:"User",
+    lastActivity:new Date().getTime()
 }
 
-create4thPost({title:'Post 4',body:'this is post 4'},getPosts)
+function updateLastUserActivityTime(){
+    return new Promise((resolve,reject)=>{
+        setTimeout(() => {
+            user.lastActivity = new Date().getTime()
+            resolve(user.lastActivity)       
+        }, 1000);
+    })
+}
+
+function updatePost(){
+    console.log(user.lastActivity)
+    Promise.all([createPost,updateLastUserActivityTime])
+    .then(([createResolve,updateResolve])=>{
+        
+        // updateResolve()
+        console.log(updateResolve)
+        console.log(user.lastActivity)
+    }).catch(err=>console.log(err))
+}
+ 
+updatePost();
+
+
+
+
+
