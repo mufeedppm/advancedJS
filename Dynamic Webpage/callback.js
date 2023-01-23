@@ -90,14 +90,14 @@ createPost({title:'post 4',body:'this post 4'})
 
 const user={
     name:"User",
-    lastActivity:new Date().getTime()
+    lastActivity:"monday 22"
 }
 
 function updateLastUserActivityTime(){
     return new Promise((resolve,reject)=>{
         setTimeout(() => {
             user.lastActivity = new Date().getTime()
-            resolve(user.lastActivity)       
+            resolve(user.lastActivity=new Date())       
         }, 1000);
     })
 }
@@ -105,11 +105,17 @@ function updateLastUserActivityTime(){
 function updatePost(){
     console.log(user.lastActivity)
     Promise.all([createPost,updateLastUserActivityTime])
-    .then(([createResolve,updateResolve])=>{
-        
-        // updateResolve()
-        console.log(updateResolve)
+    .then(()=>{
+   // console.log(updateResolve)
         console.log(user.lastActivity)
+        getPost()
+        setTimeout(() => {
+            deletePost().then(()=>{
+                getPost()
+                console.log(posts)
+            })  
+        }, 1000);
+        
     }).catch(err=>console.log(err))
 }
  
