@@ -2,15 +2,17 @@ const posts=[
     {title:'Post 1',body:'this is post 1', createdAt:new Date().getTime()},
     {title:'Post 2',body:'this is post 2', createdAt:new Date().getTime()}
 ];
+
+
 console.log(posts)
 let intervalId;
-
+getPost()
 function getPost(){
     clearInterval(intervalId)
     intervalId=setInterval(() => {
         let output='';
         for(let i=0;i<posts.length;i++){
-            output+=`<li>${posts[i].title} created  ${Math.floor((posts[i].createdAt-new Date().getTime())/1000)} seconds ago</li>`
+            output+=`<li>${posts[i].title} created  ${Math.floor((new Date().getTime()-posts[i].createdAt)/1000)} seconds ago</li>`
         }
         document.body.innerHTML=output;
 
@@ -20,31 +22,40 @@ function getPost(){
 
 }
 // part1
-function createPost(post){
-    return new Promise((resolve, reject)=>{
-        setTimeout(()=>{
-            posts.push({...post,createdAt:new Date().getTime()})
-             
-            const error=false;
+let  createPost = async (post) => {
+    try{
+        let newPost= await new Promise((resolve, reject)=>{
+            setTimeout(()=>{
+                posts.push({...post,createdAt:new Date().getTime()})
+                
+                const error=false;
 
-            if(!error){
-                resolve()
-            }
-            else{
-                reject("Error:something went wrong")
-            }
-        },1000)
-    });
+                if(!error){
+                    resolve()
+                }
+                else{
+                    reject("Error:something went wrong")
+                }
+            },1000)
+        });
+    }catch(e) {
+            console.log(e)
+        }
+
+    
+    
     
 }
 
-createPost({title:'post 3',body:'this post 3'})
-.then(getPost).catch(err=>console.log(err))
+// createPost({title:'post 3',body:'this post 3'})
+// .then((x)=>getPost())
+
+// getPost()
 
 
-
-function deletePost(){
-    return new Promise((resolve,reject)=>{
+async function deletePost(){
+    try{
+    let delPost = await new Promise((resolve,reject)=>{
         
         setTimeout(() => {
             
@@ -55,9 +66,12 @@ function deletePost(){
                 reject("Error:Array empty")
             }
         }, 1000);
-       
-        
     })
+    }catch(err){
+        console.log(err)
+    }
+        
+    
 }
 
 // deletePost().then(()=>{
@@ -72,8 +86,37 @@ function deletePost(){
 //     }).catch(err=>console.log(err))
 // }).catch(err=>console.log(err))
 
-createPost({title:'post 4',body:'this post 4'})
-// .then(()=>{
+async function delAfterCreate(){
+    try{
+        let cr1=createPost({title:'post 3',body:'this post 3'})
+        await cr1;
+        getPost()
+        let cr2=createPost({title:'post 4',body:'this post 4'})
+        await cr2;
+        getPost();
+        let del1=deletePost()
+        await del1
+        getPost()
+        del1=deletePost()
+        await del1
+        getPost()
+        del1=deletePost()
+        await del1
+        getPost()
+        del1=deletePost()
+        await del1
+        getPost()
+        
+    }catch(err){
+        console.log(err)
+    }
+}
+
+delAfterCreate();
+
+// createPost({title:'post 4',body:'this post 4'}).then((x)=>getPost())
+// deletePost()
+
 //     getPost()
 //     setTimeout(() => {
 //         // getPost()
@@ -119,7 +162,7 @@ function updatePost(){
     }).catch(err=>console.log(err))
 }
  
-updatePost();
+// updatePost();
 
 
 
