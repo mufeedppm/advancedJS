@@ -7,8 +7,16 @@ var phoneInput=document.getElementById('phone')
 
 form.addEventListener('submit',addUser)
 // userList.addEventListener('click',removeUser)
+window.addEventListener('DOMContentLoaded',()=>{
+    axios.get("https://crudcrud.com/api/eb39397dcb774e03980c8074be88b756/AppData")
+    .then((res)=>{
+        for(let i=0;i<res.data.length;i++){
+            ShowDetails(res.data[i])
+            console.log(res.data[i])
+        }
+    }).catch(err=>console.log(err))
+})
 
-axios.get("https://crudcrud.com/api/eb39397dcb774e03980c8074be88b756/AppData")
 
 function addUser(e){
     e.preventDefault()
@@ -28,9 +36,13 @@ function addUser(e){
         // localStorage.setItem(obj.email, JSON.stringify(obj))
         axios.post("https://crudcrud.com/api/eb39397dcb774e03980c8074be88b756/AppData",obj)
         .then((res)=>{
+            ShowDetails(res.data)
             console.log(res.data)
             
-        }).catch(err=>console.log(err))
+        }).catch(err=>{
+            console.log(err)
+            document.body.innerHTML=document.body.innerHTML+ "<h4> Something went wrong! </h4> "
+        })
         
     }
     nameInput.value='';
@@ -50,12 +62,13 @@ function ShowDetails(obj){
 
         li.appendChild(delBtn);
 
-        delBtn.onclick = () =>{
-            if(confirm(`Press Ok to delete`)){
-            localStorage.removeItem(obj.email)
-            userList.removeChild(li)
-            }
-        }
+        // delBtn.onclick = () =>{
+        //     if(confirm(`Press Ok to delete`)){
+        //     // localStorage.removeItem(obj.email)
+        //     axios.delete("https://crudcrud.com/api/eb39397dcb774e03980c8074be88b756/AppData")
+        //     userList.removeChild(li)
+        //     }
+        // }
         var EditBtn=document.createElement('button')
 
         EditBtn.className=' editBtn '
@@ -64,15 +77,15 @@ function ShowDetails(obj){
 
         li.appendChild(EditBtn);
         
-        EditBtn.onclick = () =>{
-            if(confirm(`Press OK to confirm edit`)){
-                nameInput.value=obj.name;
-                emailInput.value=obj.email;
-                phoneInput.value=obj.phone;
-                localStorage.removeItem(obj.email)
-                userList.removeChild(li)
-            }
-        }
+        // EditBtn.onclick = () =>{
+        //     if(confirm(`Press OK to confirm edit`)){
+        //         nameInput.value=obj.name;
+        //         emailInput.value=obj.email;
+        //         phoneInput.value=obj.phone;
+        //         localStorage.removeItem(obj.email)
+        //         userList.removeChild(li)
+        //     }
+        // }
 
         userList.appendChild(li)
     
