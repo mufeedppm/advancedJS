@@ -3,7 +3,7 @@ var userList=document.getElementById('users')
 var nameInput=document.getElementById('name')
 var emailInput=document.getElementById('email')
 var phoneInput=document.getElementById('phone')
-
+var submitBtn=document.getElementById('submit')
 
 form.addEventListener('submit',addUser)
 // userList.addEventListener('click',removeUser)
@@ -38,6 +38,9 @@ function addUser(e){
         .then((res)=>{
             ShowDetails(res.data)
             console.log(res.data)
+            nameInput.value='';
+            emailInput.value='';
+            phoneInput.value=''
             
         }).catch(err=>{
             console.log(err)
@@ -45,14 +48,13 @@ function addUser(e){
         })
         
     }
-    nameInput.value='';
-    emailInput.value='';
-    phoneInput.value=''
+    
 }
 
 function ShowDetails(obj){
         var li=document.createElement('li')
-        li.appendChild(document.createTextNode(`${obj.name} : ${obj.email},${obj.phone}`))
+        var textNode=document.createTextNode(`${obj.name} : ${obj.email},${obj.phone}`)
+        li.appendChild(textNode)
         
         var delBtn=document.createElement('button')
 
@@ -86,18 +88,28 @@ function ShowDetails(obj){
         
         EditBtn.onclick = () =>{
             if(confirm(`Press OK to confirm edit`)){
+                
                 nameInput.value=obj.name;
                 emailInput.value=obj.email;
                 phoneInput.value=obj.phone;
-                console.log(obj._id)
-                new SubmitEvent((e)=>{
+                userList.removeChild(li)
+                // console.log(obj._id)
+                submitBtn.onclick= (e) => {
                     e.preventDefault()
                     axios.put(`https://crudcrud.com/api/59e48e42a64c47308a641c154562f0b0/AppData/${obj._id}`,{
-                        name:e.target.userName.value,
-                        email:e.target.email.value,
-                        phone:e.target.phone.value
-                    })
-                })
+                        name:nameInput.value,
+                        email:emailInput.value,
+                        phone:phoneInput.value
+                    }).then((res)=>{
+                        li.removeChild(textNode);
+                        li.appendChild(document.createTextNode(`${nameInput.value} : ${emailInput.value},${phoneInput.value}`))
+                        userList.appendChild(li)
+                        nameInput.value='';
+                        emailInput.value='';
+                        phoneInput.value=''
+
+                    }).catch(err=>console.log(err))
+                }
                 
                 // localStorage.removeItem(obj.email)
                 // userList.removeChild(li)
