@@ -8,7 +8,7 @@ var phoneInput=document.getElementById('phone')
 form.addEventListener('submit',addUser)
 // userList.addEventListener('click',removeUser)
 window.addEventListener('DOMContentLoaded',()=>{
-    axios.get("https://crudcrud.com/api/eb39397dcb774e03980c8074be88b756/AppData")
+    axios.get("https://crudcrud.com/api/59e48e42a64c47308a641c154562f0b0/AppData")
     .then((res)=>{
         for(let i=0;i<res.data.length;i++){
             ShowDetails(res.data[i])
@@ -34,7 +34,7 @@ function addUser(e){
     }
     else{
         // localStorage.setItem(obj.email, JSON.stringify(obj))
-        axios.post("https://crudcrud.com/api/eb39397dcb774e03980c8074be88b756/AppData",obj)
+        axios.post("https://crudcrud.com/api/59e48e42a64c47308a641c154562f0b0/AppData",obj)
         .then((res)=>{
             ShowDetails(res.data)
             console.log(res.data)
@@ -67,7 +67,7 @@ function ShowDetails(obj){
         delBtn.onclick = () =>{
             if(confirm(`Press Ok to delete`)){
             // localStorage.removeItem(obj.email)
-            axios.delete(`https://crudcrud.com/api/eb39397dcb774e03980c8074be88b756/AppData/${obj._id}`)
+            axios.delete(`https://crudcrud.com/api/59e48e42a64c47308a641c154562f0b0/AppData/${obj._id}`)
             .then((res)=>{
                 console.log(res.statusText)
                 userList.removeChild(li)
@@ -92,7 +92,7 @@ function ShowDetails(obj){
                 console.log(obj._id)
                 new SubmitEvent((e)=>{
                     e.preventDefault()
-                    axios.put(`https://crudcrud.com/api/eb39397dcb774e03980c8074be88b756/AppData/${obj._id}`,{
+                    axios.put(`https://crudcrud.com/api/59e48e42a64c47308a641c154562f0b0/AppData/${obj._id}`,{
                         name:e.target.userName.value,
                         email:e.target.email.value,
                         phone:e.target.phone.value
