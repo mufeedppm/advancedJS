@@ -62,13 +62,20 @@ function ShowDetails(obj){
 
         li.appendChild(delBtn);
 
-        // delBtn.onclick = () =>{
-        //     if(confirm(`Press Ok to delete`)){
-        //     // localStorage.removeItem(obj.email)
-        //     axios.delete("https://crudcrud.com/api/eb39397dcb774e03980c8074be88b756/AppData")
-        //     userList.removeChild(li)
-        //     }
-        // }
+        
+
+        delBtn.onclick = () =>{
+            if(confirm(`Press Ok to delete`)){
+            // localStorage.removeItem(obj.email)
+            axios.delete(`https://crudcrud.com/api/eb39397dcb774e03980c8074be88b756/AppData/${obj._id}`)
+            .then((res)=>{
+                console.log(res.statusText)
+                userList.removeChild(li)
+            })
+            .catch(err=>console.log(err))
+            
+            }
+        }
         var EditBtn=document.createElement('button')
 
         EditBtn.className=' editBtn '
@@ -77,15 +84,25 @@ function ShowDetails(obj){
 
         li.appendChild(EditBtn);
         
-        // EditBtn.onclick = () =>{
-        //     if(confirm(`Press OK to confirm edit`)){
-        //         nameInput.value=obj.name;
-        //         emailInput.value=obj.email;
-        //         phoneInput.value=obj.phone;
-        //         localStorage.removeItem(obj.email)
-        //         userList.removeChild(li)
-        //     }
-        // }
+        EditBtn.onclick = () =>{
+            if(confirm(`Press OK to confirm edit`)){
+                nameInput.value=obj.name;
+                emailInput.value=obj.email;
+                phoneInput.value=obj.phone;
+                console.log(obj._id)
+                new SubmitEvent((e)=>{
+                    e.preventDefault()
+                    axios.put(`https://crudcrud.com/api/eb39397dcb774e03980c8074be88b756/AppData/${obj._id}`,{
+                        name:e.target.userName.value,
+                        email:e.target.email.value,
+                        phone:e.target.phone.value
+                    })
+                })
+                
+                // localStorage.removeItem(obj.email)
+                // userList.removeChild(li)
+            }
+        }
 
         userList.appendChild(li)
     
